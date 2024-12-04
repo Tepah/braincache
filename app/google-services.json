@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575209746696",
+    "project_id": "braincache-414c4",
+    "storage_bucket": "braincache-414c4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575209746696:android:54ce692aa344ceb328bcbd",
+        "android_client_info": {
+          "package_name": "com.example.braincache"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYRclPX1O3EWGPhjEIPr-NZckIFVCH5Pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
