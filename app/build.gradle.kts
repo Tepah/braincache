@@ -39,10 +39,6 @@ android {
 dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

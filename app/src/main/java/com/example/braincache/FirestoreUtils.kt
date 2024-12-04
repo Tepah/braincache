@@ -18,20 +18,6 @@ object FirestoreUtils {
     private val userService: UserService = retrofit.create(UserService::class.java)
 
     fun createUserData(user: User, callBack: (FirestoreUserResponse?) -> Unit) {
-        val call = userService.createUser(apiKey, user)
-        call.enqueue(object : retrofit2.Callback<FirestoreUserResponse>{
-            override fun onResponse(call: Call<FirestoreUserResponse>, response: retrofit2.Response<FirestoreUserResponse>) {
-                if (response.isSuccessful) {
-                    callBack(response.body())
-                } else {
-                    Log.e(TAG, "Error: ${response.code()} - ${response.message()}")
-                    callBack(null)
-                }
-            }
-            override fun onFailure(call: Call<FirestoreUserResponse>, t: Throwable) {
-                Log.e("FirestoreUtils", "Failed to create user data", t)
-                callBack(null)
-            }
-        })
+
     }
 }
