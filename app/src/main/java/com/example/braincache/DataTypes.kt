@@ -15,7 +15,7 @@ data class User (
 )
 
 data class Quiz(
-    val id: String,
+    val id: String? = null,
     val userId: Long,
     val questions: List<String>,
     val answers: List<String>,

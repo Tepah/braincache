@@ -38,15 +38,15 @@ class MainActivity : AppCompatActivity() {
         // Setup OnClick for login button
         this.loginButton.setOnClickListener {
             val txt = this.loginInput.text
-            val user = User(null, txt.toString())
+            val user = User(null, username = txt.toString(), password = "")
             println("Username: $txt clicked!")
-            FirestoreUtils.createUserData(user) { response ->
-                println("Response: $response")
-            }
         }
 
         this.signUpButton.setOnClickListener {
             // Set up code to change the view to the sign up screen
+            createUserData(User(null, "test", "test")) { id ->
+                println("User created with id: $id")
+            }
         }
     }
 }
