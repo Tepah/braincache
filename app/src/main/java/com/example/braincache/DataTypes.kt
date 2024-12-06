@@ -26,7 +26,7 @@ interface ApiService {
     fun createUser(@Body user: User): Call<User>
 
     @POST("/login")
-    fun loginUser(@Body user: User): Call<User>
+    fun loginUser(@Body user: User): Call<List<User>>
 
     @GET("/users/{userid}")
     fun getUser(@Path("id") id: String): Call<List<User>>
