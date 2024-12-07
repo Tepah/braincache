@@ -29,7 +29,7 @@ fun createUserData(user: User, callback: (String) -> Unit) {
             if (response.isSuccessful) {
                 val createdUser = response.body()
                 Log.v(TAG, "User created: $createdUser")
-                callback(createdUser?.id ?: "")
+                callback(createdUser?._id ?: "")
             } else {
                 Log.e(TAG, "Failed to create user")
             }

@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var passwordInput: TextInputEditText
     private lateinit var loginButton: Button
     private lateinit var signUpButton: Button
+    private lateinit var createQuizButton: Button
+    private lateinit var getAllQuizzesButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         this.passwordInput = this.findViewById(R.id.passwordInput)
         this.loginButton = this.findViewById(R.id.loginButton)
         this.signUpButton = this.findViewById(R.id.signUpButton)
+        this.createQuizButton = this.findViewById(R.id.testCreateQuizButton)
+        this.getAllQuizzesButton = this.findViewById(R.id.getQuizzesButton)
 
         setupOnClickListeners()
 
@@ -37,15 +42,32 @@ class MainActivity : AppCompatActivity() {
     private fun setupOnClickListeners() {
         // Setup OnClick for login button
         this.loginButton.setOnClickListener {
-            val txt = this.loginInput.text
-            val user = User(null, username = txt.toString(), password = "")
-            println("Username: $txt clicked!")
+            val username = this.loginInput.text
+            val password = this.passwordInput.text
+            val user = User(null, username = username.toString(), password = password.toString())
+            loginUser(user) { id ->
+                println("User logged in: $id")
+            }
         }
 
         this.signUpButton.setOnClickListener {
             // Set up code to change the view to the sign up screen
             createUserData(User(null, "test", "test")) { id ->
                 println("User created with id: $id")
+            }
+        }
+
+        this.createQuizButton.setOnClickListener {
+            val questions = listOf("What is 1+1?", "What is 2+2?")
+            val answers = listOf("2", "Paris")
+            createQuiz(Quiz(null, "Test", "1", questions, answers)) { quiz ->
+                println("Quiz created with id: ${quiz._id}")
+            }
+        }
+
+        this.getAllQuizzesButton.setOnClickListener {
+            getAllQuizzes { quizzes ->
+                println("Quizzes retrieved: $quizzes")
             }
         }
     }

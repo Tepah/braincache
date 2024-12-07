@@ -9,14 +9,15 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 data class User (
-    val id: String? = null,
+    val _id: String? = null,
     val username: String,
     val password: String
 )
 
 data class Quiz(
-    val id: String? = null,
-    val userId: Long,
+    val _id: String? = null,
+    val title: String,
+    val userID: String,
     val questions: List<String>,
     val answers: List<String>,
 )
@@ -29,17 +30,17 @@ interface ApiService {
     fun loginUser(@Body user: User): Call<List<User>>
 
     @GET("/users/{userid}")
-    fun getUser(@Path("id") id: String): Call<List<User>>
+    fun getUser(@Path("userid") id: String): Call<List<User>>
 
     @GET("/quizzes")
     fun getAllQuizzes(): Call<List<Quiz>>
 
-    @GET("/quizzes/{quizid}")
+    @GET("/quizzes/{userID}")
     fun getQuizzesByUser(@Path("userID") userID: String): Call<List<Quiz>>
 
     @POST("quizzes")
     fun createQuiz(@Body quiz: Quiz): Call<Quiz>
 
-    @DELETE("/quizzes/{quizid}")
-    fun deleteQuiz(@Path("quizid") quizID: String): Call<Quiz>
+    @DELETE("/quizzes/{quizID}")
+    fun deleteQuiz(@Path("quizID") quizID: String): Call<Quiz>
 }
