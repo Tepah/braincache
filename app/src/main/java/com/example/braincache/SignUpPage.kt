@@ -1,5 +1,6 @@
 package com.example.braincache
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.NonCancellable.start
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,11 +59,14 @@ class SignUpPage : AppCompatActivity() {
     }
 
     private fun createUser(username: String, password: String) {
+        val intent = Intent(this, MainActivity::class.java)
         val user = User(username = username, password = password)
         apiService.createUser(user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@SignUpPage, "User created successfully", Toast.LENGTH_SHORT).show()
+
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this@SignUpPage, "Failed to create user", Toast.LENGTH_SHORT).show()
                 }
