@@ -74,6 +74,7 @@ const loginUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
+        console.log("Getting user..")
         const user = await User.findById(req.params.id, '-password');
         res.json(user);
     } catch {
@@ -84,6 +85,7 @@ const getUser = async (req, res) => {
 // ** Quiz Controllers
 const getAllQuizzes = async (req, res) => {
     try {
+        console.log("Getting all Quizzes..")
         const quizzes = await Quiz.find();
         res.json(quizzes);
     } catch {
@@ -93,6 +95,7 @@ const getAllQuizzes = async (req, res) => {
 
 const getQuizzesByUser = async (req, res) => {
     try {
+        console.log("Getting quiz by user..")
         const quizzes = await Quiz.find({ userID: req.params.userID });
         res.json(quizzes);
     } catch {
@@ -102,8 +105,20 @@ const getQuizzesByUser = async (req, res) => {
 
 const createQuiz = async (req, res) => {
     try {
+        console.log("Creating quiz...");
+        const { title, userID, questions, answers } = req.body;
+        if (!title || !userID || !questions || !answers) {
+            console.log("Error creating quiz: Title, userID, questions and answers are required: ",
+                title, userID, questions, answers);
+            return res.status(400).send('Title, userID, questions and answers are required');
+        }
 
-    } catch {
+        const newQuiz = new Quiz({ title, userID, questions, answers });
+        await newQuiz.save();
+        console.log("Quiz created")
+        res.send(newQuiz);
+    } catch (error) {
+        console.log("Error Creating quiz: ", error)
         res.status(500).send('Error creating quiz');
     }
 }
