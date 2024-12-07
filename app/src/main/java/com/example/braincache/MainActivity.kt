@@ -1,5 +1,6 @@
 package com.example.braincache
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -51,7 +52,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         this.signUpButton.setOnClickListener {
-            // Set up code to change the view to the sign up screen
+            val intent = Intent(this, SignUpPage::class.java)
+            startActivity(intent)
             createUserData(User(null, "test", "test")) { id ->
                 println("User created with id: $id")
             }
