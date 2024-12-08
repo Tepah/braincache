@@ -1,7 +1,9 @@
 package com.example.braincache
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -45,7 +47,13 @@ class SignUpPage : AppCompatActivity() {
             val password = passwordInput.text.toString()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                createUser(username, password)
+                val user = User(username = username, password = password)
+                createUserData(user) { id ->
+                    Log.v(TAG, "User created with id: $id")
+                    Toast.makeText(this@SignUpPage, "User created successfully", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             } else {
                 Toast.makeText(this, "Please enter a username and password", Toast.LENGTH_SHORT).show()
             }
@@ -58,23 +66,4 @@ class SignUpPage : AppCompatActivity() {
         }
     }
 
-    private fun createUser(username: String, password: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        val user = User(username = username, password = password)
-        apiService.createUser(user).enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(this@SignUpPage, "User created successfully", Toast.LENGTH_SHORT).show()
-
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this@SignUpPage, "Failed to create user", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(this@SignUpPage, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 }
