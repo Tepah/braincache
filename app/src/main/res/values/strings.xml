@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BrainCache</string>
+    <string name="please_enter_a_username_using_only_a_z_and_numbers_0_9">Please enter a username using only A-Z and numbers 0-9</string>
+    <string name="please_enter_a_password_using_only_a_z_and_numbers_0_9">Please enter a password using only A-Z and numbers 0-9</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="sign_up">Sign up</string>
 </resources>
