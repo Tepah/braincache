@@ -8,25 +8,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.example.braincache.PreferenceHelper
+
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var loginInput: TextInputEditText
-    private lateinit var passwordInput: TextInputEditText
-    private lateinit var loginButton: Button
     private lateinit var signUpButton: Button
     private lateinit var createQuizButton: Button
     private lateinit var getAllQuizzesButton: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check if the user is logged in
+        if (!PreferenceHelper.isLoggedIn(this)) {
+            navigateToLoginPage()
+            return
+        }
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        this.loginInput = this.findViewById(R.id.usernameInput)
-        this.passwordInput = this.findViewById(R.id.passwordInput)
-        this.loginButton = this.findViewById(R.id.loginButton)
         this.signUpButton = this.findViewById(R.id.signUpButton)
         this.createQuizButton = this.findViewById(R.id.testCreateQuizButton)
         this.getAllQuizzesButton = this.findViewById(R.id.getQuizzesButton)
@@ -40,16 +41,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToLoginPage() {
+        val intent = Intent(this, LoginPage::class.java)
+        startActivity(intent)
+        finish() // Close MainActivity so the user cannot return using the back button
+    }
+
     private fun setupOnClickListeners() {
-        // Setup OnClick for login button
-        this.loginButton.setOnClickListener {
-            val username = this.loginInput.text
-            val password = this.passwordInput.text
-            val user = User(null, username = username.toString(), password = password.toString())
-            loginUser(user) { id ->
-                println("User logged in: $id")
-            }
-        }
 
         this.signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpPage::class.java)
@@ -74,3 +72,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
