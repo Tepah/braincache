@@ -2,6 +2,7 @@ package com.example.braincache
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,6 +86,7 @@ fun loginUser(userData: User, callback: (List<User>) -> Unit) {
 
         override fun onFailure(call: Call<List<User>>, t: Throwable) {
             Log.e(TAG, "Failed to retrieve user", t)
+            callback(emptyList())
         }
     })
 }
